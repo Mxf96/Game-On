@@ -1,0 +1,61 @@
+.main-container {
+  display: flex;
+  max-width: 1240px;
+  height: 657px;
+  margin: 40px auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  background: #1c1c1c;
+  position: relative;
+}
+
+.text-content {
+  width: 400px;
+  padding: 40px;
+  color: white;
+  background: #1c1c1c;
+  position: relative;
+  z-index: 2;
+}
+
+.text-content h1 {
+  font-size: 96px;
+  margin-bottom: 20px;
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  width: 800px;
+  z-index: 3;
+  white-space: nowrap;
+}
+
+.text-content p {
+  font-size: 24px;
+  margin: 300px 0 30px 10px;
+}
+
+.btn-inscription {
+  background: #fe142f;
+  color: white;
+  border: none;
+  margin: 50px 0 0 10px;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-size: 25px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-inscription:hover {
+  background: #c40811;
+}
+
+.image-content {
+  flex: 1;
+  background-image: url("../assets/img/bg_img.jpg");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  z-index: 1;
+}
