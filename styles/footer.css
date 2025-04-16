@@ -16,20 +16,16 @@
   }
 }
 
-@media (max-width: 768px) and (min-width: 426px) {
+@media (max-width: 1023px) and (min-width: 426px) {
   .footer {
     max-width: 425px;
     justify-content: center;
   }
 }
-@media (max-width: 1024px) and (min-width: 769px) {
-  .footer {
-    max-width: 768px;
-  }
-}
 
-@media (max-width: 1439px) and (min-width: 1025px) {
+@media (max-width: 1439px) and (min-width: 1024px) {
   .footer {
     max-width: 1024px;
+    margin-top: 20px;
   }
 }
