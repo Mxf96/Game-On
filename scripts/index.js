@@ -6,6 +6,17 @@ burger.addEventListener("click", () => {
   navList.classList.toggle("active");
 });
 
+// Ferme le menu si on clique en dehors
+document.addEventListener("click", (e) => {
+  const isClickInsideMenu = navList.contains(e.target);
+  const isClickOnBurger = burger.contains(e.target);
+
+  if (!isClickInsideMenu && !isClickOnBurger) {
+    navList.classList.remove("active");
+  }
+});
+
+
 
 // Ouvre la modal
 document.querySelector(".btn-inscription").addEventListener("click", () => {
