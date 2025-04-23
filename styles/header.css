@@ -103,12 +103,11 @@
 
 @media (max-width: 600px) and (min-width: 425px) {
   .header {
-    max-width: 400px;
-    padding: 20px 0;
+    padding: 20px 20px;
   }
   .logo-container img {
     padding: 0;
-    width: 150px;
+    width: 200px;
   }
 }
 
@@ -118,14 +117,13 @@
     padding: 20px 0;
   }
   .logo-container img {
-    padding: 0;
-    width: 150px;
+    padding: 0 0 0 5px;
   }
 }
 
 @media (max-width: 1023px) and (min-width: 768px) {
   .header {
-    max-width: 700px;
+    max-width: 800px;
     margin-bottom: -50px;
   }
   .logo-container img {
@@ -142,7 +140,6 @@
     padding: 0 10px;
     width: 200px;
   }
-
   .logo-container img:hover {
     transform: scale(1.2);
   }

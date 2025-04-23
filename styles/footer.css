@@ -1,9 +1,9 @@
 .footer {
-  max-width: 1300px;
+  max-width: 1440px;
   margin: 0 auto;
   display: flex;
   justify-content: flex-start;
-  padding: 10px 20px;
+  padding: 10px 80px;
   color: #fe142f;
   font-weight: 700;
   font-size: 15px;
@@ -27,5 +27,6 @@
   .footer {
     max-width: 1024px;
     margin-top: 20px;
+    padding: 10px 40px;
   }
 }
