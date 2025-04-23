@@ -70,6 +70,10 @@
     display: flex;
   }
 
+  .burger span {
+    background: #fe142f;
+  }
+
   .nav-list {
     position: absolute;
     top: 60px;
