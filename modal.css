@@ -562,7 +562,7 @@ footer {
 }
 @media (max-width: 500px) {
   .content {
-    margin: 10% auto;
+    margin: 20% auto;
   }
   .hero-headline {
     font-size: 3.5rem;
