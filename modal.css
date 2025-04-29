@@ -551,6 +551,9 @@ footer {
   }
 }
 @media (max-width: 600px) {
+  .content {
+    margin: 10% auto;
+  }
   .hero-headline {
     font-size: 4rem;
   }
@@ -561,9 +564,6 @@ footer {
   }
 }
 @media (max-width: 500px) {
-  .content {
-    margin: 20% auto;
-  }
   .hero-headline {
     font-size: 3.5rem;
   }
