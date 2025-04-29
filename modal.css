@@ -171,7 +171,7 @@ main {
 }
 
 .content {
-  margin: 1% auto;
+  margin: 5% auto;
   width: 100%;
   max-width: 500px;
   animation-name: modalopen;
