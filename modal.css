@@ -322,6 +322,7 @@ input[data-error]::after {
 .close:after {
   transform: rotate(-45deg);
 }
+.btn-submit-close,
 .btn-submit,
 .btn-signup {
   background: #fe142f;
@@ -333,6 +334,9 @@ input[data-error]::after {
   color: #fff;
   cursor: pointer;
   border: 0;
+}
+.btn-submit-close {
+  margin-top: 250px;
 }
 /* custom select styles */
 .custom-select {
@@ -474,6 +478,30 @@ input[data-error]::after {
 .hero-section > .btn-signup {
   display: none;
 }
+
+/* ------------------------------------------------------ */
+.thank-you.hidden {
+  display: none;
+}
+
+.thank-you {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 700px;
+  color: #ffffff;
+  text-align: center;
+  position: relative;
+}
+
+.thank-you-text {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 250px;
+}
+/* ------------------------------------------------------ */
+
 footer {
   padding-left: 2vw;
   padding-right: 2vw;
