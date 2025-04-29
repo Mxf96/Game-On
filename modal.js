@@ -5,121 +5,129 @@ function editNav() {
   const x = document.getElementById("myTopnav");
   x.className = x.className === "topnav" ? "topnav responsive" : "topnav";
 }
-
-// Rendre la fonction visible globalement :
 window.editNav = editNav;
 
 /* --------------------------------------------------
-    DOM Elements
+   DOM Elements
 -------------------------------------------------- */
-const modalBg = document.querySelector(".bground"); // conteneur général
-const modalBtns = document.querySelectorAll(".modal-btn"); // boutons “je m'inscris”
-const closeSpan = document.getElementById("close"); // croix de fermeture sur le formulaire
-const closeThankYouBtn = document.getElementById("closeThankYou"); // bouton "Fermer" écran Merci
-const closeThankYouSpan = document.getElementById("closeThankYouSpan"); // croix de fermeture écran Merci
-const form = document.forms["reserve"]; // formulaire
+const modalBg           = document.querySelector(".bground");
+const modalBtns         = document.querySelectorAll(".modal-btn");
+const closeSpan         = document.getElementById("close");
+const closeThankYouBtn  = document.getElementById("closeThankYou");
+const closeThankYouSpan = document.getElementById("closeThankYouSpan");
+const form              = document.forms["reserve"];
 
-// Ouvre la modale
-modalBtns.forEach((btn) =>
-  btn.addEventListener("click", () => {
-    modalBg.style.display = "block";
-  })
-);
+/* --------------------------------------------------
+   Ouverture / fermeture de la modale
+-------------------------------------------------- */
+modalBtns.forEach(btn => btn.addEventListener("click", () => {
+  modalBg.style.display = "block";
+}));
 
-// Ferme la modale avec la croix principale
-closeSpan.addEventListener("click", closeModal);
-
-// Ferme la modale avec la croix du message de remerciement
+closeSpan        .addEventListener("click", closeModal);
 closeThankYouSpan.addEventListener("click", closeModal);
+closeThankYouBtn .addEventListener("click", closeModal);
 
-// Ferme la modale avec le bouton "Fermer" du message de remerciement
-closeThankYouBtn.addEventListener("click", closeModal);
-
-// Ferme la modale si l'on clique en dehors de la fenêtre
-window.addEventListener("click", (e) => {
-  if (e.target === modalBg) {
-    closeModal();
-  }
+window.addEventListener("click", e => {
+  if (e.target === modalBg) closeModal();
 });
 
-// Fonction générale pour fermer la modale
 function closeModal() {
   modalBg.style.display = "none";
-
-  // Réaffiche le formulaire
   document.getElementById("form-body").style.display = "block";
-
-  // Cache le message de remerciement
   document.getElementById("thank-you").style.display = "none";
-
-  // Affiche la croix du formulaire
-  closeSpan.style.display = "block";
-
-  // Cache la croix du message de remerciement
+  closeSpan.style.display        = "block";
   closeThankYouSpan.style.display = "none";
-
-  // Réinitialise le formulaire
-  form.reset();
-
-  // Supprime les messages d'erreur
-  document.querySelectorAll(".error-message").forEach((el) => el.remove());
+  // form.reset();
+  document.querySelectorAll(".error-message").forEach(el => el.remove());
 }
+
 
 /* --------------------------------------------------
    Validation du formulaire
 -------------------------------------------------- */
-form.addEventListener("submit", (e) => {
-  e.preventDefault(); // empêche l'envoi classique
-
-  // Supprime les anciens messages d'erreur
-  document.querySelectorAll(".error-message").forEach((el) => el.remove());
+form.addEventListener("submit", e => {
+  e.preventDefault();
+  document.querySelectorAll(".error-message").forEach(el => el.remove());
 
   let isValid = true;
 
-  /* 1. Champs obligatoires */
+  /* 1. Champs obligatoires -------------------- */
   const requiredIds = ["first", "last", "email", "birthdate", "quantity"];
-  requiredIds.forEach((id) => {
+  requiredIds.forEach(id => {
     const input = document.getElementById(id);
+
+    // a) champ vide
     if (!input.value.trim()) {
       isValid = false;
       showError(input, "Ce champ est requis.");
+      return;
+    }
+
+    // b) first / last : minimum 2 caractères
+    if (["first", "last"].includes(id) && input.value.trim().length < 2) {
+      isValid = false;
+      showError(input, "Veuillez entrer 2 caractères ou plus pour ce champ.");
     }
   });
 
-  /* 2. Radio : choix du tournoi */
+  /* 2. Radio : choix du tournoi --------------- */
   const radios = document.querySelectorAll('input[name="location"]');
-  if (![...radios].some((r) => r.checked)) {
+  if (![...radios].some(r => r.checked)) {
     isValid = false;
     showError(radios[0].closest(".formData"), "Veuillez choisir un tournoi.");
   }
 
-  /* 3. Checkbox conditions d’utilisation */
+  /* 3. Checkbox CGU --------------------------- */
   const terms = document.getElementById("checkbox1");
   if (!terms.checked) {
     isValid = false;
     showError(terms.parentElement, "Vous devez accepter les conditions.");
   }
 
-  /* 4. Si tout est valide : Affiche l'écran Merci */
+  /* 4. Date de naissance ---------------------- */
+  const birthInput = document.getElementById("birthdate");
+  if (!birthInput.value) {
+    isValid = false;
+    showError(birthInput, "Vous devez entrer votre date de naissance.");
+  }
+
+  /* 5. E-mail valide -------------------------- */
+  const emailInput = document.getElementById("email");
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(emailInput.value.trim())) {
+    isValid = false;
+    showError(emailInput, "Adresse e-mail invalide.");
+  }
+
+  /* 6. Quantité numérique --------------------- */
+  const qtyInput = document.getElementById("quantity");
+  if (
+    qtyInput.value.trim() === "" ||
+    isNaN(qtyInput.value) ||
+    Number(qtyInput.value) < 0
+  ) {
+    isValid = false;
+    showError(qtyInput, "Veuillez indiquer un nombre valide.");
+  }
+
+  /* 7. Affichage “Merci” si tout est OK -------- */
   if (isValid) {
     document.getElementById("form-body").style.display = "none";
     document.getElementById("thank-you").style.display = "flex";
-
-    // Cache la croix du formulaire
-    closeSpan.style.display = "none";
-
-    // Affiche la croix du message de remerciement
+    closeSpan.style.display        = "none";
     closeThankYouSpan.style.display = "block";
   }
 });
 
 /* --------------------------------------------------
-   Fonction utilitaire pour afficher une erreur
+   Affichage d’erreur
 -------------------------------------------------- */
 function showError(element, message) {
   const error = document.createElement("span");
   error.className = "error-message";
   error.style.color = "#e54858";
+  error.setAttribute("role", "alert"); // accessibilité
   error.textContent = message;
   element.insertAdjacentElement("afterend", error);
 }
