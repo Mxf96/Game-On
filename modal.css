@@ -78,7 +78,7 @@ img {
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1110px) {
   .topnav.responsive {
     position: relative;
   }
@@ -484,7 +484,7 @@ footer {
     font-size: 4.75rem;
   }
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1110px) {
   .hero-section {
     display: block;
     box-shadow: unset;
