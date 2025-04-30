@@ -15,45 +15,61 @@
     />
   </head>
   <body>
+    <!-- NAVIGATION PRINCIPALE -->
     <div class="topnav" id="myTopnav">
       <div class="header-logo">
+        <!-- Logo du site -->
         <img alt="logo" src="Logo.png" width="auto" height="auto" />
       </div>
       <div class="main-navbar">
+        <!-- Liens du menu principal -->
         <a href="#" class="active"><span>Accueil</span></a>
         <a href="#"><span>Détails de l'évènement</span></a>
         <a href="#"><span>À propos</span></a>
         <a href="#"><span>Contact</span></a>
         <a href="#"><span>Évènements passés</span></a>
+        <!-- Icône "hamburger" pour afficher le menu en responsive -->
         <a href="javascript:void(0);" class="icon" onclick="editNav()">
           <i class="fa fa-bars"></i>
         </a>
       </div>
     </div>
 
+    <!-- SECTION PRINCIPALE -->
     <main>
+      <!-- SECTION HERO (titre, texte, image, bouton) -->
       <div class="hero-section">
         <div class="hero-content">
+          <!-- Titre principal de la page -->
           <h1 class="hero-headline">Marathon national de jeux vidéos</h1>
+          <!-- Texte de description de l'événement -->
           <p class="hero-text">
             Vous aimez jouer ? Notre prochain évènement gaming est ouvert aux
             réservations... Places limitées !
           </p>
+          <!-- Bouton d'inscription (visible sur desktop) -->
           <button class="btn-signup modal-btn">je m'inscris</button>
         </div>
+
         <div class="hero-img">
+          <!-- Image à droite du texte (dans la partie hero) -->
           <img src="./bg_img.jpg" alt="img" />
         </div>
+
+        <!-- Deuxième bouton d'inscription (visible sur mobile uniquement via CSS) -->
         <button class="btn-signup modal-btn">je m'inscris</button>
       </div>
 
+      <!-- FENÊTRE MODALE (formulaire) -->
       <div class="bground">
         <div class="content">
+          <!-- Bouton pour fermer la modale -->
           <span class="close" id="close"></span>
 
-          <!-- Formulaire -->
+          <!-- CORPS DU FORMULAIRE -->
           <div class="modal-body" id="form-body">
             <form name="reserve" action="index.html" method="get">
+              <!-- Champ prénom -->
               <div class="formData">
                 <label for="first">Prénom</label>
                 <input
@@ -65,11 +81,13 @@
                 />
               </div>
 
+              <!-- Champ nom -->
               <div class="formData">
                 <label for="last">Nom</label>
                 <input class="text-control" type="text" id="last" name="last" />
               </div>
 
+              <!-- Champ e-mail -->
               <div class="formData">
                 <label for="email">E-mail</label>
                 <input
@@ -80,6 +98,7 @@
                 />
               </div>
 
+              <!-- Champ date de naissance -->
               <div class="formData">
                 <label for="birthdate">Date de naissance</label>
                 <input
@@ -90,11 +109,11 @@
                 />
               </div>
 
+              <!-- Champ nombre de participations -->
               <div class="formData">
-                <label for="quantity"
-                  >À combien de tournois GameOn avez-vous déjà participé
-                  ?</label
-                >
+                <label for="quantity">
+                  À combien de tournois GameOn avez-vous déjà participé ?
+                </label>
                 <input
                   type="number"
                   class="text-control"
@@ -105,10 +124,10 @@
                 />
               </div>
 
+              <!-- Choix du lieu de tournoi (boutons radio) -->
               <p class="text-label">
                 A quel tournoi souhaitez-vous participer cette année ?
               </p>
-
               <div class="formData">
                 <input
                   class="checkbox-input"
@@ -117,10 +136,9 @@
                   name="location"
                   value="New York"
                 />
-                <label class="checkbox-label" for="location1">
-                  <span class="checkbox-icon"></span>
-                  New York
-                </label>
+                <label class="checkbox-label" for="location1"
+                  ><span class="checkbox-icon"></span>New York</label
+                >
 
                 <input
                   class="checkbox-input"
@@ -129,10 +147,9 @@
                   name="location"
                   value="San Francisco"
                 />
-                <label class="checkbox-label" for="location2">
-                  <span class="checkbox-icon"></span>
-                  San Francisco
-                </label>
+                <label class="checkbox-label" for="location2"
+                  ><span class="checkbox-icon"></span>San Francisco</label
+                >
 
                 <input
                   class="checkbox-input"
@@ -141,10 +158,9 @@
                   name="location"
                   value="Seattle"
                 />
-                <label class="checkbox-label" for="location3">
-                  <span class="checkbox-icon"></span>
-                  Seattle
-                </label>
+                <label class="checkbox-label" for="location3"
+                  ><span class="checkbox-icon"></span>Seattle</label
+                >
 
                 <input
                   class="checkbox-input"
@@ -153,10 +169,9 @@
                   name="location"
                   value="Chicago"
                 />
-                <label class="checkbox-label" for="location4">
-                  <span class="checkbox-icon"></span>
-                  Chicago
-                </label>
+                <label class="checkbox-label" for="location4"
+                  ><span class="checkbox-icon"></span>Chicago</label
+                >
 
                 <input
                   class="checkbox-input"
@@ -165,10 +180,9 @@
                   name="location"
                   value="Boston"
                 />
-                <label class="checkbox-label" for="location5">
-                  <span class="checkbox-icon"></span>
-                  Boston
-                </label>
+                <label class="checkbox-label" for="location5"
+                  ><span class="checkbox-icon"></span>Boston</label
+                >
 
                 <input
                   class="checkbox-input"
@@ -177,12 +191,12 @@
                   name="location"
                   value="Portland"
                 />
-                <label class="checkbox-label" for="location6">
-                  <span class="checkbox-icon"></span>
-                  Portland
-                </label>
+                <label class="checkbox-label" for="location6"
+                  ><span class="checkbox-icon"></span>Portland</label
+                >
               </div>
 
+              <!-- Cases à cocher -->
               <div class="formData">
                 <input
                   class="checkbox-input"
@@ -202,11 +216,12 @@
                 </label>
               </div>
 
+              <!-- Bouton de soumission -->
               <input class="btn-submit" type="submit" value="C'est parti" />
             </form>
           </div>
 
-          <!-- Message de remerciement -->
+          <!-- ÉCRAN "MERCI" APRÈS VALIDATION -->
           <div class="thank-you hidden" id="thank-you">
             <span class="close" id="closeThankYouSpan"></span>
             <p class="thank-you-text">
@@ -218,9 +233,13 @@
         </div>
       </div>
     </main>
+
+    <!-- PIED DE PAGE -->
     <footer>
       <p class="copyrights">Copyright 2014 - 2022, GameOn Inc.</p>
     </footer>
+
+    <!-- Chargement du script JavaScript -->
     <script src="modal.js"></script>
   </body>
 </html>
