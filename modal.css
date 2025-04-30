@@ -500,6 +500,14 @@ input[data-error]::after {
   font-weight: bold;
   margin-top: 250px;
 }
+
+.error-message {
+  color: #e54858;
+  font-size: 12px;
+  font-weight: normal;
+  display: block;
+  margin-top: 4px;
+}
 /* ------------------------------------------------------ */
 
 footer {

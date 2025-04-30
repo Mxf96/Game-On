@@ -36,7 +36,7 @@ function closeModal() {
   modalBg.style.display = "none";
   document.getElementById("form-body").style.display = "block";
   document.getElementById("thank-you").style.display = "none";
-  closeSpan.style.display        = "block";
+  closeSpan.style.display         = "block";
   closeThankYouSpan.style.display = "none";
   // form.reset();
   document.querySelectorAll(".error-message").forEach(el => el.remove());
@@ -125,9 +125,8 @@ form.addEventListener("submit", e => {
 -------------------------------------------------- */
 function showError(element, message) {
   const error = document.createElement("span");
-  error.className = "error-message";
-  error.style.color = "#e54858";
-  error.setAttribute("role", "alert"); // accessibilité
+  error.className = "error-message";  
+  error.setAttribute("role", "alert");
   error.textContent = message;
   element.insertAdjacentElement("afterend", error);
 }
