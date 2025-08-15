@@ -10,25 +10,27 @@ window.editNav = editNav;
 /* --------------------------------------------------
    DOM Elements
 -------------------------------------------------- */
-const modalBg           = document.querySelector(".bground");
-const modalBtns         = document.querySelectorAll(".modal-btn");
-const closeSpan         = document.getElementById("close");
-const closeThankYouBtn  = document.getElementById("closeThankYou");
+const modalBg = document.querySelector(".bground");
+const modalBtns = document.querySelectorAll(".modal-btn");
+const closeSpan = document.getElementById("close");
+const closeThankYouBtn = document.getElementById("closeThankYou");
 const closeThankYouSpan = document.getElementById("closeThankYouSpan");
-const form              = document.forms["reserve"];
+const form = document.forms["reserve"];
 
 /* --------------------------------------------------
    Ouverture / fermeture de la modale
 -------------------------------------------------- */
-modalBtns.forEach(btn => btn.addEventListener("click", () => {
-  modalBg.style.display = "block";
-}));
+modalBtns.forEach((btn) =>
+  btn.addEventListener("click", () => {
+    modalBg.style.display = "block";
+  })
+);
 
-closeSpan        .addEventListener("click", closeModal);
+closeSpan.addEventListener("click", closeModal);
 closeThankYouSpan.addEventListener("click", closeModal);
-closeThankYouBtn .addEventListener("click", closeModal);
+closeThankYouBtn.addEventListener("click", closeModal);
 
-window.addEventListener("click", e => {
+window.addEventListener("click", (e) => {
   if (e.target === modalBg) closeModal();
 });
 
@@ -36,25 +38,24 @@ function closeModal() {
   modalBg.style.display = "none";
   document.getElementById("form-body").style.display = "block";
   document.getElementById("thank-you").style.display = "none";
-  closeSpan.style.display         = "block";
+  closeSpan.style.display = "block";
   closeThankYouSpan.style.display = "none";
   // form.reset();
-  document.querySelectorAll(".error-message").forEach(el => el.remove());
+  document.querySelectorAll(".error-message").forEach((el) => el.remove());
 }
-
 
 /* --------------------------------------------------
    Validation du formulaire
 -------------------------------------------------- */
-form.addEventListener("submit", e => {
+form.addEventListener("submit", (e) => {
   e.preventDefault();
-  document.querySelectorAll(".error-message").forEach(el => el.remove());
+  document.querySelectorAll(".error-message").forEach((el) => el.remove());
 
   let isValid = true;
 
   /* 1. Champs obligatoires -------------------- */
   const requiredIds = ["first", "last", "email", "birthdate", "quantity"];
-  requiredIds.forEach(id => {
+  requiredIds.forEach((id) => {
     const input = document.getElementById(id);
 
     // a) champ vide
@@ -73,7 +74,7 @@ form.addEventListener("submit", e => {
 
   /* 2. Radio : choix du tournoi --------------- */
   const radios = document.querySelectorAll('input[name="location"]');
-  if (![...radios].some(r => r.checked)) {
+  if (![...radios].some((r) => r.checked)) {
     isValid = false;
     showError(radios[0].closest(".formData"), "Veuillez choisir un tournoi.");
   }
@@ -115,7 +116,7 @@ form.addEventListener("submit", e => {
   if (isValid) {
     document.getElementById("form-body").style.display = "none";
     document.getElementById("thank-you").style.display = "flex";
-    closeSpan.style.display        = "none";
+    closeSpan.style.display = "none";
     closeThankYouSpan.style.display = "block";
   }
 });
@@ -125,7 +126,7 @@ form.addEventListener("submit", e => {
 -------------------------------------------------- */
 function showError(element, message) {
   const error = document.createElement("span");
-  error.className = "error-message";  
+  error.className = "error-message";
   error.setAttribute("role", "alert");
   error.textContent = message;
   element.insertAdjacentElement("afterend", error);

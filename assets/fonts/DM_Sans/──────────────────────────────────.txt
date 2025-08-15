@@ -1,0 +1,163 @@
+// ───────────────────────────────────────────────────────────────
+// 1.  NAVIGATION RÉACTIVE  (hamburger sur petit écran)
+// ───────────────────────────────────────────────────────────────
+function editNav() {
+  // Récupère le conteneur du menu
+  const x = document.getElementById("myTopnav");
+
+  /*  
+   * Si sa classe vaut exactement "topnav" on ajoute " responsive"
+   *     → le CSS passera en mode colonne (voir media-query)
+   * Sinon on repasse à la classe de base.
+   */
+  x.className = x.className === "topnav" ? "topnav responsive" : "topnav";
+}
+// Rend la fonction accessible aux attributs inline (onclick="editNav()")
+window.editNav = editNav;
+
+
+
+// ───────────────────────────────────────────────────────────────
+// 2.  RÉFÉRENCES DOM  (on stocke tout ce dont on aura besoin)
+// ───────────────────────────────────────────────────────────────
+const modalBg           = document.querySelector(".bground");             // overlay fond sombre
+const modalBtns         = document.querySelectorAll(".modal-btn");        // 2 boutons “je m’inscris”
+const closeSpan         = document.getElementById("close");               // croix dans le formulaire
+const closeThankYouBtn  = document.getElementById("closeThankYou");       // bouton Fermer sur l’écran Merci
+const closeThankYouSpan = document.getElementById("closeThankYouSpan");   // croix écran Merci
+const form              = document.forms["reserve"];                      // <form name="reserve">
+
+
+
+// ───────────────────────────────────────────────────────────────
+// 3.  OUVERTURE / FERMETURE DE LA MODALE
+// ───────────────────────────────────────────────────────────────
+
+// 👉 3-a  OUVERTURE : clic sur n’importe quel bouton “je m’inscris”
+modalBtns.forEach(btn =>
+  btn.addEventListener("click", () => {
+    modalBg.style.display = "block";                                      // on affiche l’overlay + la fenêtre
+  })
+);
+
+// 👉 3-b  FERMETURE : quatre façons de refermer
+closeSpan        .addEventListener("click", closeModal);                  // croix formulaire
+closeThankYouSpan.addEventListener("click", closeModal);                  // croix écran Merci
+closeThankYouBtn .addEventListener("click", closeModal);                  // bouton Fermer écran Merci
+window.addEventListener("click", e => {                                   // clic hors de la fenêtre
+  if (e.target === modalBg) closeModal();
+});
+
+function closeModal() {
+  // Cache l’overlay
+  modalBg.style.display = "none";
+
+  // Ré-affiche le formulaire, cache la page Merci
+  document.getElementById("form-body").style.display = "block";
+  document.getElementById("thank-you").style.display = "none";
+
+  // Remet la bonne croix
+  closeSpan.style.display         = "block";
+  closeThankYouSpan.style.display = "none";
+
+  // (optionnel) on pourrait conserver les valeurs ➜ reset désactivé
+  // form.reset();
+
+  // Supprime tous les messages d’erreur encore présents
+  document.querySelectorAll(".error-message").forEach(el => el.remove());
+}
+
+
+
+// ───────────────────────────────────────────────────────────────
+// 4.  VALIDATION DU FORMULAIRE
+// ───────────────────────────────────────────────────────────────
+form.addEventListener("submit", e => {
+  e.preventDefault();                                                     // empêche l’envoi réel
+  document.querySelectorAll(".error-message").forEach(                    // nettoie les anciens msgs
+    el => el.remove()
+  );
+
+  let isValid = true;                                                     // drapeau global
+
+  /* 4-1. Champs obligatoires (texte / email / date / number) */
+  const requiredIds = ["first","last","email","birthdate","quantity"];
+  requiredIds.forEach(id => {
+    const input = document.getElementById(id);
+
+    // a) vide
+    if (!input.value.trim()) {
+      isValid = false;
+      showError(input,"Ce champ est requis.");
+      return;                                                             // skip le reste des tests pour ce champ
+    }
+
+    // b) Prénom + Nom : < 2 caractères
+    if (["first","last"].includes(id) && input.value.trim().length < 2) {
+      isValid = false;
+      showError(input,"Veuillez entrer 2 caractères ou plus pour ce champ.");
+    }
+  });
+
+  /* 4-2. Radio : aucun tournoi sélectionné */
+  const radios = document.querySelectorAll('input[name="location"]');
+  if (![...radios].some(r => r.checked)) {
+    isValid = false;
+    showError(radios[0].closest(".formData"),"Veuillez choisir un tournoi.");
+  }
+
+  /* 4-3. Checkbox CGU non cochée */
+  const terms = document.getElementById("checkbox1");
+  if (!terms.checked) {
+    isValid = false;
+    showError(terms.parentElement,"Vous devez accepter les conditions.");
+  }
+
+  /* 4-4. Date de naissance vide */
+  const birthInput = document.getElementById("birthdate");
+  if (!birthInput.value) {
+    isValid = false;
+    showError(birthInput,"Vous devez entrer votre date de naissance.");
+  }
+
+  /* 4-5. Email non valide (regex simple) */
+  const emailInput = document.getElementById("email");
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(emailInput.value.trim())) {
+    isValid = false;
+    showError(emailInput,"Adresse e-mail invalide.");
+  }
+
+  /* 4-6. Quantité non numérique ou < 0 */
+  const qtyInput = document.getElementById("quantity");
+  if (
+    qtyInput.value.trim() === "" ||
+    isNaN(qtyInput.value)        ||
+    Number(qtyInput.value) < 0
+  ) {
+    isValid = false;
+    showError(qtyInput,"Veuillez indiquer un nombre valide.");
+  }
+
+  /* 4-7. Si TOUT est valide → écran “Merci” */
+  if (isValid) {
+    document.getElementById("form-body").style.display = "none";            // cache le form
+    document.getElementById("thank-you").style.display = "flex";            // montre Merci
+    closeSpan.style.display         = "none";                               // cache la croix du form
+    closeThankYouSpan.style.display = "block";                              // montre la croix de Merci
+  }
+});
+
+
+
+// ───────────────────────────────────────────────────────────────
+// 5.  Affichage d’un message d’erreur sous un champ donné
+// ───────────────────────────────────────────────────────────────
+function showError(element, message) {
+  const error = document.createElement("span");
+  error.className = "error-message";                                        // pour le style CSS
+  error.style.color = "#e54858";                                            // rouge
+  error.setAttribute("role","alert");                                       // lu par les lecteurs d’écran
+  error.textContent = message;
+  element.insertAdjacentElement("afterend", error);                         // juste après le champ
+}
